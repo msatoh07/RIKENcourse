@@ -1,0 +1,614 @@
+---
+title: "Assingment1_MS"
+output: html_document
+date: "2025-09-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Task 1 = Literature
+
+```{r}
+# 1.Read articles.
+# 2.a Van Bruggen et al. explored early oligodendrogenesis in the human ventral brain (postconception weeks (PCW) 8-11 weeks) using single cell 
+# transcriptome, epigenomics, spatial in situ sequencing, and RNAscope. They found that as early as PCW8, radial glial cells start being 
+# specified in the ventral forebrain into the oligodendrocyte (OL) lineage. This data suggested the first wave of olivodendrogenesis indeed occurs 
+# early in the first trimester of human development.
+
+# 2.b - single cell RNA seq
+#     - single cell ATAC seq
+#     - Hybridization-based in situ sequencing
+#     - RNAscope
+
+# 3.a. -1 Elucidating human-specific mechanisms of oligodendrogenesis
+#        I am interested in clarifying how the early waves of oligodendrocyte precursor cell (OPC) differentiation observed in human forebrain differ from #        other animal models. It would be great if we could identify human-specific developmental trajectries.
+#      -2 Integrative analysis of transcriptional and epigenetic regulatory network
+#.       I am interested in other epigenetic information to explore regulatory network. If we could add 3 genome architecture, it would be helpful to 
+#.       understand the transcription factor networks and epigenetic programs driving OPC emergence.
+#.     -3 Application to disease modeling   
+#.       Leveraging the developmental reference map to compare with disease-drived iPSC or brain organoid models, we could understand the mechanisms of 
+#.       neurodevelopmental diseaese.
+# 3.b. -1 Integrate cross-species single cell datasets with Harmony, align homologous populations using SAMap, and reconstruct trajectories via RNA 
+#.      velocity and quantify human-specific states using DAseq and ligand receptor network inference using Cellchat.
+#      -2 Integrate Hi-C/ABCmodels with pseudotime tradeSeq to identify dynamic regulatory swtich during early oligodendrogenesis.
+#      -3 Map disease iPSC/organoid data onto fetal reference via scArches, quantify trajectory deviations with velocity and optimal transport, integrate #.      GWAS-eQTL colocalization, and assess altered cell composition and signaling networks.
+```
+
+## Task 2 
+
+```{r}
+# Start a new project in a Gitlab, Github or Figshare repository.
+# https://github.com/msatoh07/RIKENcourse
+```
+
+## Task 3
+
+```{r}
+library(tidyverse)
+```
+
+## Task 4
+
+```{r}
+# 1
+sqrt(10)
+
+```
+
+```{r}
+# 2
+log2(32)
+```
+
+```{r}
+# 3
+sum(1:1000)
+
+```
+
+```{r}
+# 4
+sum(seq(2, 1000, by = 2))
+```
+
+```{r}
+# 5
+n <- 100
+pairs <- choose(n, 2)
+pairs
+```
+
+```{r}
+# 6
+choose(100,3)
+
+```
+
+## Task 5
+```{r}
+# 1
+data (CO2)
+head (CO2)
+```
+
+```{r}
+# 2
+help(CO2)
+
+```
+
+```{r}
+# 3
+library(dplyr)
+
+summary_vals <- CO2 %>% 
+  group_by(Type) %>% 
+  summarise(
+    mean_uptake = mean(uptake),
+    median_uptake = median(uptake)
+  )
+
+# mean
+ggplot(summary_vals, aes(x = Type, y = mean_uptake)) +
+  geom_col(position = "dodge") +
+  labs(title = "Mean CO2 Uptake by Plant Type",
+       x = "Plant Type",
+       y = "CO2 Uptake")
+
+#median
+ggplot(summary_vals, aes(x = Type, y = median_uptake)) +
+  geom_col(position = "dodge") +
+  labs(title = "Median CO2 Uptake by Plant Type",
+       x = "Plant Type",
+       y = "CO2 Uptake")
+
+```
+
+```{r}
+# 4 
+#if (!requireNamespace("airway", quietly = TRUE)) {
+#  BiocManager::install("airway")
+#}
+
+library(airway)
+library(SummarizedExperiment)
+
+data("airway")
+head(airway)
+counts <- assay(airway)   # matrix of counts
+dim(counts)               # genes x samples
+
+# count expressed genes per sample
+genes_expressed_per_sample <- colSums(counts > 0)
+genes_expressed_per_sample
+
+# count non-expressed genes per sample
+genes_not_expressed <- sum(rowSums(counts > 0) == 0)
+genes_not_expressed
+
+summary(genes_expressed_per_sample)
+
+```
+
+## Task 6
+```{r}
+# 1
+ratio_mean_median <- function(x) {
+  mean(x, na.rm = TRUE) / median(x, na.rm = TRUE)
+}
+
+# Example
+ratio_mean_median(c(1, 10, 100))
+```
+
+```{r}
+# 2
+mean_trim_extremes <- function(x) {
+  x_sorted <- sort(x, na.last = NA)
+  if (length(x_sorted) <= 2) {
+    return(NA)  # not enough values
+  }
+  mean(x_sorted[-c(1, length(x_sorted))], na.rm = TRUE)
+}
+
+# Example
+mean_trim_extremes(c(1, 5, 6, 7, 10))
+
+```
+
+```{r}
+# 3
+pipe_explanation <- "Weshouldavoidpipeswhenchainsexceedmorethan10stepswhencombiningmultipleinputs/output,orwhenmodelingcomplex"
+
+```
+
+```{r}
+# 4
+apply_explanation <- "Wecanreducetheneedforloopsbyapplyingafunctiontodataobjects"
+
+```
+
+## Task 7
+```{r}
+#install.packages("remotes")
+library(remotes)
+#install_url("http://emotion.utu.fi/wp-content/uploads/2019/11/nummenmaa_1.0.tar.gz", 
+#            dependencies = TRUE)
+```
+
+```{r}
+# 1
+library(tidyverse)
+magic_guys <-read.csv("Data/magic_guys.csv")
+head(magic_guys)
+magic_guys$species
+
+# a
+# Separate histograms by species (jedi or sith)
+hist(magic_guys$length[magic_guys$species == "jedi"],
+     main = "Length Distribution: Jedi",
+     xlab = "Length",
+     col = "skyblue",
+     breaks = 10)
+
+hist(magic_guys$length[magic_guys$species == "sith"],
+     main = "Length Distribution: Sith",
+     xlab = "Length",
+     col = "lightgreen",
+     breaks = 10)
+
+# Side-by-side histograms for both Jedi and Sith
+par(mfrow = c(1, 2))  # 1 row, 2 plots
+
+hist(magic_guys$length[magic_guys$species == "jedi"],
+     main = "Length Distribution: Jedi",
+     xlab = "Length", col = "skyblue", breaks = 20)
+
+hist(magic_guys$length[magic_guys$species == "sith"],
+     main = "Length Distribution: Sith",
+     xlab = "Length", col = "lightgreen", breaks = 20)
+
+par(mfrow = c(1, 1))  # reset layout
+
+```
+
+```{r}
+# 1 ggplot
+
+library(ggplot2)
+
+ggplot(magic_guys, aes(x = length, fill = species)) +
+  geom_histogram(alpha = 0.6, position = "identity", bins = 15) +
+  facet_wrap(~species) +
+  labs(title = "Length Distribution of Jedi and Sith",
+       x = "Length", y = "Count") +
+  theme_minimal()
+
+# Faceted histograms: one panel per species
+ggplot(magic_guys, aes(x = length, fill = species)) +
+  geom_histogram(bins = 15, fill = "steelblue", color = "white") +
+  facet_wrap(~species, scales = "free_y") +
+  labs(title = "Length Distribution by Species",
+       x = "Length", y = "Count") +
+  theme_light()
+
+# Overlay Jedi & Sith in one plot (with transparent fill)
+ggplot(magic_guys, aes(x = length, fill = species)) +
+  geom_histogram(alpha = 0.6, bins = 20, position = "identity") +
+  labs(title = "Length Distribution of Jedi vs Sith",
+       x = "Length", y = "Count") +
+  theme_minimal()
+
+```
+
+```{r}
+# 1 b
+boxplot(length ~ species, data = magic_guys,
+        main = "Body Length by Species",
+        xlab = "Species", ylab = "Length",
+        col = c("skyblue", "lightgreen"))
+
+ggplot(magic_guys, aes(x = species, y = length, fill = species)) +
+  geom_boxplot() +
+  labs(title = "Body Length by Species",
+       x = "Species", y = "Length") +
+  theme_minimal() 
+
+```
+
+```{r}
+# 1c
+
+# PNG
+png("boxplot_length.png", width = 800, height = 600)
+ggplot(magic_guys, aes(x = species, y = length, fill = species)) +
+  geom_boxplot() +
+  labs(title = "Body Length by Species",
+       x = "Species", y = "Length") +
+  theme_minimal()
+dev.off()
+
+# PDF
+pdf("boxplot_length.pdf", width = 8, height = 6)
+ggplot(magic_guys, aes(x = species, y = length, fill = species)) +
+  geom_boxplot() +
+  labs(title = "Body Length by Species",
+       x = "Species", y = "Length") +
+  theme_minimal()
+dev.off()
+
+# SVG
+svg("boxplot_length.svg", width = 8, height = 6)
+ggplot(magic_guys, aes(x = species, y = length, fill = species)) +
+  geom_boxplot() +
+  labs(title = "Body Length by Species",
+       x = "Species", y = "Length") +
+  theme_minimal()
+dev.off()
+
+# In which situation would you use which file format?
+# PNG: Raster format: good for slides, web
+# PDF: Vector format: good for printing and publication
+# SVG: Vector format: good for editing in Illustrator
+
+```
+
+```{r}
+# 2
+microarray <- read.delim("Data/microarray_data.tab", header = TRUE, stringsAsFactors = FALSE)
+head(microarray)
+dim(microarray)
+
+```
+
+```{r}
+# 2 b
+missing_per_gene <- rowSums(is.na(microarray)) #count NAs per row
+
+# Visualize first using histogram
+hist(missing_per_gene,
+     main = "Missing Values per Gene",
+     xlab = "Number of Missing Values",
+     col = "lightblue",
+     breaks = 10)
+
+# Visualize using ggplot
+ggplot(data.frame(Missing = missing_per_gene), aes(x = Missing)) +
+  geom_histogram(binwidth = 1, fill = "skyblue", color = "lightgreen") +
+  labs(title = "Missing Values per Gene", x = "Number of Missing Values", y = "Count") 
+
+```
+
+```{r}
+# 2 c
+missing_percent <- missing_per_gene / ncol(microarray) * 100 # Calculate percentage of missing values per gene
+
+# Thresholds
+genes_10 <- rownames(microarray)[missing_percent > 10]
+genes_20 <- rownames(microarray)[missing_percent > 20]
+genes_50 <- rownames(microarray)[missing_percent > 50]
+
+length(genes_10)  # number of genes >10% missing
+length(genes_20)
+length(genes_50)
+
+# If I optionally wanted to visualize which genes exceed the threashold
+missing_percent <- rowSums(is.na(microarray)) / ncol(microarray) * 100
+
+hist(missing_percent,
+     breaks = 40,
+     col = "lightgreen",
+     xlab = "Percentage of Missing Values",
+     main = "Missing Values per Gene")
+abline(v = c(10, 20, 50), col = "blue", lty = 2)  # thresholds
+legend("topright", legend = c("10%", "20%", "50%"), col = "blue", lty = 2)
+```
+
+```{r}
+# 2 d
+# To replace NAs by row mean
+impute_row_mean <- function(x) {
+  ifelse(is.na(x), mean(x, na.rm = TRUE), x)
+}
+
+# Apply to each row
+microarray_imputed <- t(apply(microarray, 1, impute_row_mean))
+
+# Convert back to data.frame if needed
+microarray_imputed <- as.data.frame(microarray_imputed)
+
+library(pheatmap)
+# Convert to numeric matrix
+microarray_mat <- as.matrix(microarray_imputed)
+# Heatmap of the first 100 genes for clarity
+pheatmap(microarray_mat[1:100, ], cluster_rows = TRUE, cluster_cols = TRUE,
+         main = "Heatmap of Imputed Gene Expression (first 100 genes)")
+
+```
+
+```{r}
+# 3
+data(CO2)
+head(CO2)
+str(CO2)
+
+hist(CO2$uptake,
+     breaks = 20,
+     col = "lightgreen",
+     main = "Distribution of CO2 Uptake",
+     xlab = "CO2 uptake")
+
+# Boxplot by type and treatment to see differences between Quebec and Mississippi plants under different treatments.
+boxplot(uptake ~ Type * Treatment, data = CO2,
+        col = c("skyblue","lightblue","salmon","pink"),
+        main = "CO2 Uptake by Type and Treatment",
+        xlab = "Type and Treatment", ylab = "CO2 uptake")
+
+# Scatter plot of uptake vs concentration to show the relationship between the two
+ggplot(CO2, aes(x = conc, y = uptake, color = Type, shape = Treatment)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(title = "CO2 Uptake vs Concentration",
+       x = "CO2 Concentration", y = "CO2 Uptake") +
+  theme_minimal()
+
+# Faceted plot by plant to see variation between individual plants.
+ggplot(CO2, aes(x = conc, y = uptake)) +
+  geom_point(color = "black") +
+  geom_smooth(method = "loess", se = FALSE, color = "red") +
+  facet_wrap(~Plant) +
+  labs(title = "CO2 Uptake vs Concentration per Plant",
+       x = "CO2 Concentration", y = "CO2 Uptake")
+
+#non linear
+fm1 <- nls(uptake ~ SSasymp(conc, Asym, lrc, c0), data = CO2, subset = Plant == "Qn1") 
+summary (fm1)
+
+fmlist <- list()
+for (pp in levels(CO2$Plant)){
+  fmlist[[pp]] <- nls(uptake ~ SSasymp(conc, Asym, lrc, c0),
+                      data = CO2, subset = Plant == pp)
+}
+print(sapply(fmlist, coef), digits =3)
+
+## check correlations
+# Correlation for Quebec Chilled
+quebec_chilled_data <- subset(CO2, Type == "Quebec" & Treatment == "chilled")
+correlation_quebec_chilled <- cor(quebec_chilled_data$uptake, quebec_chilled_data$conc)
+print(correlation_quebec_chilled)
+
+# Correlation for Quebec Nonchilled
+quebec_nonchilled_data <- subset(CO2, Type == "Quebec" & Treatment == "nonchilled")
+correlation_quebec_nonchilled <- cor(quebec_nonchilled_data$uptake, quebec_nonchilled_data$conc)
+print(correlation_quebec_nonchilled)
+
+# Correlation for Mississippi Chilled
+mississippi_chilled_data <- subset(CO2, Type == "Mississippi" & Treatment == "chilled")
+correlation_mississippi_chilled <- cor(mississippi_chilled_data$uptake, mississippi_chilled_data$conc)
+print(correlation_mississippi_chilled)
+
+# Correlation for Mississippi Nonchilled
+mississippi_nonchilled_data <- subset(CO2, Type == "Mississippi" & Treatment == "nonchilled")
+correlation_mississippi_nonchilled <- cor(mississippi_nonchilled_data$uptake, mississippi_nonchilled_data$conc)
+print(correlation_mississippi_nonchilled)
+
+
+# Dicussion 
+# The data showed clear plateau in CO2 uptake between 250-400 umol/mol, with strong correlation before that range. 
+
+
+```
+
+## Task 8
+```{r}
+# Install devtools
+#install.packages("devtools")
+library(devtools)
+# Install tidybiology from GitHub
+#devtools::install_github("hirscheylab/tidybiology")
+library(tidybiology)
+
+```
+
+```{r}
+# 1a
+# Load chromosome dataset
+library(tidyverse)
+data("chromosome")
+colnames(chromosome)
+
+chromosome_summary <- chromosome %>%
+  summarise(
+    mean_variations = mean(variations, na.rm = TRUE),
+    median_variations = median(variations, na.rm = TRUE),
+    max_variations = max(variations, na.rm = TRUE),
+    
+    mean_protein_coding_genes = mean(protein_codinggenes, na.rm = TRUE),
+    median_protein_coding_genes = median(protein_codinggenes, na.rm = TRUE),
+    max_protein_coding_genes = max(protein_codinggenes, na.rm = TRUE),
+    
+    mean_miRNAs = mean(mi_rna, na.rm = TRUE),
+    median_miRNAs = median(mi_rna, na.rm = TRUE),
+    max_miRNAs = max(mi_rna, na.rm = TRUE)
+  )
+
+chromosome_summary
+
+```
+
+```{r}
+# 1 b
+ggplot(chromosome, aes(x = length_mm)) +
+  geom_histogram(binwidth = 4, fill = "skyblue", color = "black") +
+  labs(title = "Chromosome Size Distribution",
+       x = "Chromosome Length (mm)", y = "Count") +
+  theme_minimal()
+
+```
+
+```{r}
+# 1 C
+
+# chromosome length vs protein coding genes
+ggplot(chromosome, aes(x = length_mm, y = protein_codinggenes)) +
+  geom_point(color = "black", size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "Protein Coding Genes vs Chromosome Length",
+       x = "Chromosome Length (mm)", y = "Protein Coding Genes") +
+  theme_minimal()
+
+# Fit linear model
+lm_protein <- lm(protein_codinggenes ~ length_mm, data = chromosome)
+# Get R²
+summary(lm_protein)$r.squared
+
+library(ggpubr)
+
+ggplot(chromosome, aes(x = length_mm, y = protein_codinggenes)) +
+  geom_point(color = "black", size = 2, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  stat_regline_equation(aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
+  labs(title = "Protein Coding Genes vs Chromosome Length",
+       x = "Chromosome Length (mm)", y = "Protein Coding Genes") +
+  theme_minimal()
+
+# chromosome length vs miRNAs
+ggplot(chromosome, aes(x = length_mm, y = mi_rna)) +
+  geom_point(color = "black", size = 2, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "miRNAs vs Chromosome Length",
+       x = "Chromosome Length (mm)", y = "miRNAs") +
+  theme_minimal()
+
+# To find R2 and add it to the correlation plot
+ggplot(chromosome, aes(x = length_mm, y = mi_rna)) +
+  geom_point(color = "black", size = 1, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  stat_regline_equation(aes(label = paste(..eq.label.., ..rr.label.., sep = "~~~"))) +
+  labs(title = "miRNAs vs Chromosome Length",
+       x = "Chromosome Length (mm)", y = "miRNAs") +
+  theme_minimal()
+
+```
+
+```{r}
+# 1 d
+# Load data
+data("proteins")
+head(proteins)
+str(proteins)
+
+# Get the summary stats
+library(dplyr)
+
+proteins_summary <- proteins %>%
+  summarise(
+    mean_length = mean(length, na.rm = TRUE),
+    median_length = median(length, na.rm = TRUE),
+    max_length = max(length, na.rm = TRUE),
+    
+    mean_mass = mean(mass, na.rm = TRUE),
+    median_mass = median(mass, na.rm = TRUE),
+    max_mass = max(mass, na.rm = TRUE)
+  )
+
+# To plot in a scatter plot the length vs mass
+library(viridis)  # for nice color palette
+
+ggplot(proteins, aes(x = length, y = mass)) +
+  geom_point(aes(color = mass), alpha = 0.7, size = 1) +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  scale_color_viridis_c(option = "A") +
+  labs(title = "Protein Mass vs Length",
+       x = "Protein Length (aa)",
+       y = "Protein Mass (Da)",
+       color = "Mass") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "right")
+
+proteins_summary
+
+```
+
