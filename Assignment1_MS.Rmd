@@ -28,40 +28,55 @@ plot(pressure)
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-## Task 1 = Literature
+## Task 1: Literature
 
-```{r}
-# 1.Read articles.
-# 2.a Van Bruggen et al. explored early oligodendrogenesis in the human ventral brain (postconception weeks (PCW) 8-11 weeks) using single cell 
-# transcriptome, epigenomics, spatial in situ sequencing, and RNAscope. They found that as early as PCW8, radial glial cells start being 
-# specified in the ventral forebrain into the oligodendrocyte (OL) lineage. This data suggested the first wave of olivodendrogenesis indeed occurs 
-# early in the first trimester of human development.
 
-# 2.b - single cell RNA seq
-#     - single cell ATAC seq
-#     - Hybridization-based in situ sequencing
-#     - RNAscope
+ 1.Read articles.
+ 
+ 2.a 
+ Van Bruggen et al. explored early oligodendrogenesis in the human ventral brain (postconception weeks (PCW) 8-11 weeks) using single cell 
+ transcriptome, epigenomics, spatial in situ sequencing, and RNAscope. They found that as early as PCW8, radial glial cells start being 
+ specified in the ventral forebrain into the oligodendrocyte (OL) lineage. This data suggested the first wave of olivodendrogenesis indeed occurs 
+ early in the first trimester of human development.
 
-# 3.a. -1 Elucidating human-specific mechanisms of oligodendrogenesis
-#        I am interested in clarifying how the early waves of oligodendrocyte precursor cell (OPC) differentiation observed in human forebrain differ from #        other animal models. It would be great if we could identify human-specific developmental trajectries.
-#      -2 Integrative analysis of transcriptional and epigenetic regulatory network
-#.       I am interested in other epigenetic information to explore regulatory network. If we could add 3 genome architecture, it would be helpful to 
-#.       understand the transcription factor networks and epigenetic programs driving OPC emergence.
-#.     -3 Application to disease modeling   
-#.       Leveraging the developmental reference map to compare with disease-drived iPSC or brain organoid models, we could understand the mechanisms of 
-#.       neurodevelopmental diseaese.
-# 3.b. -1 Integrate cross-species single cell datasets with Harmony, align homologous populations using SAMap, and reconstruct trajectories via RNA 
-#.      velocity and quantify human-specific states using DAseq and ligand receptor network inference using Cellchat.
-#      -2 Integrate Hi-C/ABCmodels with pseudotime tradeSeq to identify dynamic regulatory swtich during early oligodendrogenesis.
-#      -3 Map disease iPSC/organoid data onto fetal reference via scArches, quantify trajectory deviations with velocity and optimal transport, integrate #.      GWAS-eQTL colocalization, and assess altered cell composition and signaling networks.
-```
+ 2.b 
+ 
+ single cell RNA seq
+ 
+ single cell ATAC seq
+ 
+ Hybridization-based in situ sequencing
+ 
+ RNAscope
+
+ 3.a. 
+ 
+ 1. Elucidating human-specific mechanisms of oligodendrogenesis 
+    I am interested in clarifying how the early waves of oligodendrocyte precursor cell (OPC) differentiation observed in human forebrain differ from #          other animal models. It would be great if we could identify human-specific developmental trajectries.
+      
+ 2. Integrative analysis of transcriptional and epigenetic regulatory network
+       I am interested in other epigenetic information to explore regulatory network. If we could add 3 genome architecture, it would be helpful to 
+       understand the transcription factor networks and epigenetic programs driving OPC emergence.
+ 3. Application to disease modeling   
+       Leveraging the developmental reference map to compare with disease-drived iPSC or brain organoid models, we could understand the mechanisms of 
+       neurodevelopmental diseaese.
+       
+ 3.b. 
+ 
+ 1. Integrate cross-species single cell datasets with Harmony, align homologous populations using SAMap, and reconstruct trajectories via RNA 
+    velocity and quantify human-specific states using DAseq and ligand receptor network inference using Cellchat.
+    
+ 2. Integrate Hi-C/ABCmodels with pseudotime tradeSeq to identify dynamic regulatory swtich during early oligodendrogenesis.
+ 
+ 3. Map disease iPSC/organoid data onto fetal reference via scArches, quantify trajectory deviations with velocity and optimal transport, integrate GWAS-eQTL     colocalization, and assess altered cell composition and signaling networks.
+      
 
 ## Task 2 
 
-```{r}
-# Start a new project in a Gitlab, Github or Figshare repository.
-# https://github.com/msatoh07/RIKENcourse
-```
+ Start a new project in a Gitlab, Github or Figshare repository.
+ 
+ <https://github.com/msatoh07/RIKENcourse>
+
 
 ## Task 3
 
